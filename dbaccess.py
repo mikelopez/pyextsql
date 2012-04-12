@@ -58,5 +58,5 @@ class db(object):
 	
 		
 if __name__ == '__main__':
-	c = db()
+	# c = db()
 	
