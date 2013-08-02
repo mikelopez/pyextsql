@@ -5,6 +5,7 @@ from unittest import TestCase, TestSuite, TextTestRunner
 from sqlalchemy import create_engine, MetaData, Table
 from sqlalchemy.orm import mapper, sessionmaker
 
+from dbaccess import *
 import settings
 
 class AssertionError:
