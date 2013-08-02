@@ -20,12 +20,21 @@ The following sample shows how to use it as a module, or you can refer to tests.
 .. code-block:: python
 	
 	from dbaccess import *
+
 	class DatabaseTableName(object):
 		pass
+
+	# connect!
 	cl = db(host='x.x.x.x', dbuser='username', dbpass='passwd', dbname='name')
-	cl.map_table(DatabaseTableName, "sql_table_name")
 	cl.connect()
-	results = cl.select(UserProfile).filter_by(user_id='64')
+
+	# map the tables
+	cl.map_table(DatabaseTableName, "sql_table_name")
+
+	# search for something
+	results = cl.select(DatabaseTableName).filter_by(user_id='64')
+
+	# done, now close!
 	cl.close()
 
 	# show the results
