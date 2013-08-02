@@ -5,6 +5,12 @@ MySQL database using class mappings
 
 dev@scidentify.info
 
+Install 
+--------
+* Run ``pip install -r requirements.txt``
+* Run ``python setup.py install`` (as sudo or virtualenv)
+
+
 Usage
 -----
 The ``db()`` class accepts the following arguments
