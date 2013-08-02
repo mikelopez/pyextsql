@@ -26,7 +26,7 @@ class db(object):
 
   def __init__(self, **kwargs):
     """ initialize connection parameters if passed """
-    self.__set_kwargs()
+    self.__set_kwargs(kwargs)
     if kwargs.get('auto', None):
       if not self.connect():
         raise NoConnection("Database connection error")
