@@ -16,13 +16,7 @@ class NoConnection(BaseException):
 
 # database class 
 class db(object):
-  """ Database class params:
-    dbuser: database user
-    dbpass: duhh..
-    dbname: database name
-    dbhost: host ip/name of db
-    localhost: set this to override dbhost value to localhost
-   """
+  """ Main Database class. """
   engine = None
   metadata = None
   dbuser = None
@@ -30,30 +24,28 @@ class db(object):
   dbname = None
   dbhost = None
 
-  def __init__(self, dbuser=None, dbpass=None, dbname=None, dbhost=None, localhost=False):
+  def __init__(self, **kwargs):
     """ initialize connection parameters if passed """
-    if dbuser:
-      self.dbuser = dbuser
-    if dbpass:
-      self.dbpass = dbpass
-    if dbname:
-      self.dbname = dbname
-    if dbhost:
-      self.dbhost = dbhost
-
-    if localhost:
-      self.dbhost = 'localhost'
-
+    sel.__set_kwargs()
     if not self.connect():
       raise NoConnection("Database connection error")
       exit
+    self.start_session()
 
-    # map the tables
-    sampletable = Table('sampletable', self.metadata, autoload=True)
+  def __set_kwargs(self, kwargs):
+    """ Set the keyword arguments for init() """
+    for k, v in kwargs.items():
+      setattr(self, k, v)
+    if kwargs.get('localhost', False) or not self.dbhost:
+      setattr(self, "dbhost", "localhost")
+
+  def map_table(self, cls, tbl):
+    """ Map the table to a class """
+    tblobj = Table('tbl', self.metadata, autoload=True)
     userprofile = Table('userprofile', self.metadata, autoload=True)
-    mapper(SampleTable, sampletable)
-    mapper(UserProfile, userprofile)
+    mapper(cls, tblobj)
 
+  def start_session():
     session = sessionmaker(bind=self.engine)
     self.session = session()
 
@@ -68,7 +60,4 @@ class db(object):
   def disconnect(self):
     self.engine.disconnect()
 
-if __name__ == '__main__':
-  # running from command line
-  # c = db()
   
