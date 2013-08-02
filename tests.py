@@ -51,7 +51,7 @@ class TestDB(TestCase):
 
 if __name__ == '__main__':
     suite = TestSuite()
-    suite.addTest(TestDB("test_map_the_table"))
+    suite.addTest(TestDB("test_map_table"))
     TextTestRunner(verbosity=2).run(suite)
 
 
