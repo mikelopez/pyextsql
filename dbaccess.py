@@ -27,9 +27,10 @@ class db(object):
   def __init__(self, **kwargs):
     """ initialize connection parameters if passed """
     sel.__set_kwargs()
-    if not self.connect():
-      raise NoConnection("Database connection error")
-      exit
+    if kwargs.get('auto', None):
+      if not self.connect():
+        raise NoConnection("Database connection error")
+        exit
     self.start_session()
 
   def __set_kwargs(self, kwargs):
