@@ -15,4 +15,4 @@ setup(name='dbaccess',
           'Programming Language :: Python',
           'Topic :: Terminals'
           ]
-      )
+)
