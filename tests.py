@@ -33,8 +33,7 @@ class TestDB(TestCase):
                 dbuser=getattr(self, "user"),
                 dbpass=getattr(self, "password"),
                 dbname=getattr(self, "dbname"))
-        self.assertTrue(cl.connect())
-        self.assertTrue(cl.disconnect())
+        cl.connect()
         return cl
 
     def test_map_table(self):
@@ -46,6 +45,7 @@ class TestDB(TestCase):
         results = cl.session.query(UserProfile).filter_by(status='active')
         termprint("WARNING", results)
         self.assertTrue(len(results))
+        cl.disconnect()
 
 
 

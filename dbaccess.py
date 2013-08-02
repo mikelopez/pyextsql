@@ -46,7 +46,7 @@ class db(object):
     userprofile = Table('userprofile', self.metadata, autoload=True)
     mapper(cls, tblobj)
 
-  def start_session():
+  def start_session(self):
     session = sessionmaker(bind=self.engine)
     self.session = session()
 
