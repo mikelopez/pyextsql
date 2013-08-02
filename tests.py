@@ -33,19 +33,26 @@ class TestDB(TestCase):
                 dbuser=getattr(self, "user"),
                 dbpass=getattr(self, "password"),
                 dbname=getattr(self, "dbname"))
-        cl.connect()
         return cl
 
     def test_map_table(self):
         """ Test the db() class. """
         cl = self.__connect()
         # bind the table
+        cl.connect()
         cl.map_table(UserProfile, "mainweb_userprofile")
-        termprint("WARNING", dir(UserProfile))
-        results = cl.session.query(UserProfile).filter_by(status='active')
-        termprint("WARNING", results)
-        self.assertTrue(len(results))
+        termprint("INFO", "\nAttributes for UserProfile class\n%s" % dir(UserProfile))
+        # Search for results
+        results = cl.select(UserProfile).filter_by(user_id='64')
+        termprint("WARNING", "\nAttributes for results \n%s" % dir(results))
+        self.assertTrue(results)
         cl.disconnect()
+        for i in results:
+            cl.connect()
+            termprint("ERROR", "Result Object Row\n %s" % i)
+            termprint("ERROR", dir(i))
+            termprint("INFO", "Result Row\n%s" % i.__dict__)
+            cl.disconnect()
 
 
 

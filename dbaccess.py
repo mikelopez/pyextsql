@@ -23,6 +23,7 @@ class db(object):
   dbpass = None
   dbname = None
   dbhost = None
+  connection = None
 
   def __init__(self, **kwargs):
     """ initialize connection parameters if passed """
@@ -42,9 +43,9 @@ class db(object):
 
   def map_table(self, cls, tbl):
     """ Map the table to a class """
-    tblobj = Table('tbl', self.metadata, autoload=True)
-    userprofile = Table('userprofile', self.metadata, autoload=True)
+    tblobj = Table(tbl, self.metadata, autoload=True)
     mapper(cls, tblobj)
+    return cls
 
   def start_session(self):
     session = sessionmaker(bind=self.engine)
@@ -56,9 +57,14 @@ class db(object):
       self.dbuser, self.dbpass, self.dbhost, self.dbname
     ), echo=False)
     self.metadata = MetaData(self.engine)
-    return self.metadata
+    self.connection = self.engine.connect()
+    return self.engine, self.metadata
 
   def disconnect(self):
-    self.engine.disconnect()
+    return self.connection.close()
+
+  def select(self, cls):
+    """ erform a select query """
+    return self.session.query(cls)
 
   
