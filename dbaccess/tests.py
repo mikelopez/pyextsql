@@ -17,6 +17,7 @@ class AssertionError:
 
 # sample database table
 class UserProfile(object):
+    keys = ['a','b','c']
     pass
 
 class TestDB(TestCase):
@@ -47,6 +48,7 @@ class TestDB(TestCase):
         termprint("WARNING", "\nAttributes for results \n%s" % dir(results))
         self.assertTrue(results)
         cl.disconnect()
+        self.assertTrue('a' in UserProfile.keys)
         for i in results:
             cl.connect()
             termprint("ERROR", "Result Object Row\n %s" % i)
