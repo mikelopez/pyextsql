@@ -20,6 +20,9 @@ class UserProfile(object):
     keys = ['a','b','c']
     pass
 
+class CDR(object):
+    pass
+
 class TestDB(TestCase):
     """ Base test class for ami functionality that will be used """
     host = getattr(settings, "DB_HOST")
@@ -41,10 +44,10 @@ class TestDB(TestCase):
         cl = self.__connect()
         # bind the table
         cl.connect()
-        cl.map_table(UserProfile, "mainweb_userprofile")
+        cl.map_table(UserProfile, "cdr")
         termprint("INFO", "\nAttributes for UserProfile class\n%s" % dir(UserProfile))
         # Search for results
-        results = cl.select(UserProfile).filter_by(user_id='64')
+        results = cl.select(UserProfile).filter_by(dst='7863789504')
         termprint("WARNING", "\nAttributes for results \n%s" % dir(results))
         self.assertTrue(results)
         cl.disconnect()
