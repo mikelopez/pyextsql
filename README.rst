@@ -25,6 +25,8 @@ Mapping Tables
 --------------
 You can map a class to a table with the example below. By default, it will autoload its meta data. 
 To override this, you can pass ``autoload=False`` in the map_table() method. 
+By using ``skip_tables=True``, you will pass the custo Table() class that you've created instead of a
+table name string.
 
 ``cl.map_table(TableClass, 'sql_table_name', autoload=False)``
 

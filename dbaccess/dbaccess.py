@@ -41,9 +41,14 @@ class db(object):
         if kwargs.get('localhost', False) or not self.dbhost:
             setattr(self, "dbhost", "localhost")
 
-    def map_table(self, cls, tbl, autoload=True):
-        """ Map the table to a class """
-        tblobj = Table(tbl, self.metadata, autoload=autoload)
+    def map_table(self, cls, tbl, autoload=True, skip_table=False):
+        """ Map the table to a class. skip_table will skip creating the 
+        Table() object in this method, assuming its already provided 
+        in the tbl argument. """
+        if not skip_table:
+            tblobj = Table(tbl, self.metadata, autoload=autoload)
+        else:
+            tblobj = tbl
         mapper(cls, tblobj)
         return cls
 
