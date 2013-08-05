@@ -23,14 +23,16 @@ The ``db()`` class accepts the following arguments
 
 Mapping Tables
 --------------
-You can map a class to a table with the example below. By default, it will autoload its meta data.
-
+You can map a class to a table with the example below. By default, it will autoload its meta data. 
 To override this, you can pass ``autoload=False`` in the map_table() method. 
 
 ``cl.map_table(TableClass, 'sql_table_name', autoload=False)``
 
+See http://docs.sqlalchemy.org/en/latest/orm/mapper_config.html for more details on your table class
 
-The following sample shows how to use this as a module, or you can refer to tests.py
+Sample Code 
+-----------
+The following sample shows how to use this as a module, or you can refer to ``tests.py``
 
 .. code-block:: python
 	
