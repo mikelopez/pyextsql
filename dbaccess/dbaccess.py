@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, MetaData, Table
+from sqlalchemy import create_engine, MetaData, Table, and_
 from sqlalchemy.orm import mapper, sessionmaker
 
 # Authored Marcos Lopez / dev@scidentify.info
@@ -71,5 +71,9 @@ class db(object):
     def select(self, cls):
         """ perform a select query """
         return self.session.query(cls)
+
+    def filter(self, cls, col, value):
+        """ Perform a select by query. """
+        return self.session.query(cls).filter(col==value)
 
     
