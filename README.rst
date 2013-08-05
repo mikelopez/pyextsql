@@ -84,7 +84,7 @@ The following sample shows how to use this as a module, or you can refer to ``te
 	results = cl.filter(session, DatabaseAutoload, "user_id", 64)
 
 	# done, now close!
-	db_disconnect()
+	db_disconnect(connection)
 
 	# show the results
 	for i in results:
