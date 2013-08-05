@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(name='dbaccess',
-      version='0.1',
+      version='1.0',
       description='Python / MySQL - SQLAlchemy wrapper',
       author='Marcos Lopez',
       license='MIT',
