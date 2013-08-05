@@ -19,16 +19,31 @@ The ``db()`` class accepts the following arguments
 * dbname
 * dbpass
 * dbhost
-* auto = use this to automatically connect
+
+Connecting
+-----------
+You can connect by calling the main method ``db()`` with the arguments described above.
+When calling the connection function, it returns ``session, metadata, connection``
+
 
 Mapping Tables
 --------------
+Required Arguments: ``map_table(metadata, obj, database_table, autoload=False, skip_tables=False)``
+
+* metadata = This is the metadata value that is returned from db()
+* TableClass = The class that will be used to map to a database table
+* database_table = This is a string name of the table or a Table() object schema (with skip_tables set to True)
+* autoload = Boolean to autoload table metadata or use supplied object Table()
+* skip_tables = Set to true if you are passing a database_table object instead of a name(string)
+
+``cl.map_table(metadata, TableClass, sqlalchemy.Table(...), autoload=False, skip_tables=True)``
+
 You can map a class to a table with the example below. By default, it will autoload its meta data. 
 To override this, you can pass ``autoload=False`` in the map_table() method. 
-By using ``skip_tables=True``, you will pass the custo Table() class that you've created instead of a
-table name string.
+By using ``skip_tables=True``, you will pass the custom Table() class that you've created instead of a
+table name string. See http://docs.sqlalchemy.org/en/rel_0_8/orm/tutorial.html#declare-a-mapping
 
-``cl.map_table(TableClass, 'sql_table_name', autoload=False)``
+
 
 See http://docs.sqlalchemy.org/en/latest/orm/mapper_config.html for more details on your table class
 
@@ -40,21 +55,36 @@ The following sample shows how to use this as a module, or you can refer to ``te
 	
 	from dbaccess import *
 
-	class DatabaseTableName(object):
+	# this is your class that will be mapped to a database table
+	class DatabaseAutoLoad(object):
+		# use this to autoload the schema from the database 
 		pass
 
+	class DatabaseNoAutoload(object):
+		# will not autoload schema, explicitly set by Table()
+		pass
+
+	# use this with skip_table = True and pass this object instead of table name string
+	# it will bind this Table() instance in with DatabaseTableName() instead
+	table_object = Table("tbl", metadata,
+            Column('id', Integer, primary_key=True),
+            Column('name', String(60)),
+            Column('age', Integer),)
+
 	# connect!
-	cl = db(dbhost='x.x.x.x', dbuser='username', dbpass='passwd', dbname='name')
-	cl.connect()
+	session, metadata, connection = db(host, user, pass, name)
+	
+	# map the tables (autoloads meta data)
+	map_table(metadata, DatabaseAutoload, "sql_table_name")
 
-	# map the tables
-	cl.map_table(DatabaseTableName, "sql_table_name")
+	# map the other table (does not autoload, and passes a Table() instance instead of a name)
+	map_table(metadata, DatabaseNoAutoload, table_object, autoload=False, skip_table=True)
 
-	# search for something
-	results = cl.select(DatabaseTableName).filter_by(user_id='64')
+	# search for something (arguments: session, MappedClass, column_name, value)
+	results = cl.filter(session, DatabaseAutoload, "user_id", 64)
 
 	# done, now close!
-	cl.close()
+	db_disconnect()
 
 	# show the results
 	for i in results:
