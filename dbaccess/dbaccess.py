@@ -69,7 +69,7 @@ class db(object):
         return self.connection.close()
 
     def select(self, cls):
-        """ erform a select query """
+        """ perform a select query """
         return self.session.query(cls)
 
     
