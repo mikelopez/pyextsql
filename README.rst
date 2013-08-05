@@ -72,7 +72,7 @@ The following sample shows how to use this as a module, or you can refer to ``te
             Column('age', Integer),)
 
 	# connect!
-	session, metadata, connection = db(host, user, pass, name)
+	session, metadata, connection = db(host, user, passwd, name)
 	
 	# map the tables (autoloads meta data)
 	map_table(metadata, DatabaseAutoload, "sql_table_name")
