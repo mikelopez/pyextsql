@@ -21,6 +21,10 @@ The ``db()`` class accepts the following arguments
 * dbhost
 * auto = use this to automatically connect
 
+Mapping Tables
+--------------
+You can map a class to a table with the example below. By default, it will autoload its meta data.
+To override this, you can pass ``autoload=False`` in the map_table() method. ``cl.map_table(TableClass, 'sql_table_name', autoload=False)``
 The following sample shows how to use it as a module, or you can refer to tests.py
 
 .. code-block:: python
@@ -31,7 +35,7 @@ The following sample shows how to use it as a module, or you can refer to tests.
 		pass
 
 	# connect!
-	cl = db(host='x.x.x.x', dbuser='username', dbpass='passwd', dbname='name')
+	cl = db(dbhost='x.x.x.x', dbuser='username', dbpass='passwd', dbname='name')
 	cl.connect()
 
 	# map the tables
