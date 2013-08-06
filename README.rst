@@ -81,7 +81,7 @@ The following sample shows how to use this as a module, or you can refer to ``te
 	map_table(metadata, DatabaseNoAutoload, table_object, autoload=False, skip_table=True)
 
 	# search for something (arguments: session, MappedClass, column_name, value)
-	results = cl.filter(session, DatabaseAutoload, "user_id", 64)
+	results = db_filter(session, DatabaseAutoload, "user_id", 64)
 
 	# done, now close!
 	db_disconnect(connection)
