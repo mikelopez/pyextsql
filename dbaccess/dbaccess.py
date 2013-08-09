@@ -40,8 +40,15 @@ def db_filter(session, cls, col, value):
     filters = {col: value}
     return session.query(cls).filter_by(**filters).all()
 
-
-
+def db_update(session, cls, value, filterby):
+    """Update the database by filterby and update with value.
+    Required Arguments:
+     - session = The session
+     - cls = The mapped class table that you want to update
+     - value = The kwarg values (dictionary) to update
+     - filterby = The kwarg data to select the row to update.
+    """
+    return session.query(cls).filter_by(**filterby).update(value)
 
 
     
