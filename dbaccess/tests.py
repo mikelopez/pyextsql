@@ -66,7 +66,6 @@ class TestDB(TestCase):
         results_auto = db_filter(session, user_profile_auto, "user_id", '64')
         results = db_filter(session, user_profile, "user_id", '64')
 
-        print results_auto
         termprint("INFO", "Printing the results....\n")
         # show the results
         for i in results_auto:
