@@ -19,12 +19,16 @@ def db(dbhost, dbuser, dbpass, dbname):
 def map_table(metadata, cls, tbl, autoload=True, skip_table=False):
     """ Map the table to a class. skip_table will skip creating the 
     Table() object in this method, assuming its already provided 
-    in the tbl argument. """
+    in the tbl argument. Additionally, set the mapped attribute on the 
+    class object to true for testing purposes."""
     if not skip_table:
         tblobj = Table(tbl, metadata, autoload=autoload)
     else:
         tblobj = tbl
     mapper(cls, tblobj)
+    # set it to mapped
+    if tblobj:
+        setattr(cls, "mapped", True)
     return cls
 
 def db_disconnect(connection):

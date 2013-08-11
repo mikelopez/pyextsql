@@ -28,6 +28,9 @@ When calling the connection function, it returns ``session, metadata, connection
 
 Mapping Tables
 --------------
+When the table is mapped for you, it will add (or set) the mapped attribute to True so the rest
+of your applications can easily know if there were any issues before making any database queries.
+
 Required Arguments: ``map_table(metadata, obj, database_table, autoload=False, skip_tables=False)``
 
 * metadata = This is the metadata value that is returned from db()
