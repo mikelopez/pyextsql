@@ -27,8 +27,7 @@ def map_table(metadata, cls, tbl, autoload=True, skip_table=False):
         tblobj = tbl
     mapper(cls, tblobj)
     # set it to mapped
-    if tblobj:
-        setattr(cls, "mapped", True)
+    setattr(cls, "mapped", True)
     return cls
 
 def db_disconnect(connection):
