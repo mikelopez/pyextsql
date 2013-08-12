@@ -51,7 +51,7 @@ def db_update(session, cls, value, filterby):
      - value = The kwarg values (dictionary) to update
      - filterby = The kwarg data to select the row to update.
     """
-    return session.query(cls).filter_by(**filterby).update(value)
+    return session.query(cls).filter_by(**filterby).update(**value)
 
 
     
